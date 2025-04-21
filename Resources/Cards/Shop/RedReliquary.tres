@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="CardDefinition" load_steps=2 format=3 uid="uid://duri6dgv4synh"]
+
+[ext_resource type="Script" uid="uid://csjxym2rrc1sd" path="res://Scripts/Resources/CardDefinition.cs" id="1_devw1"]
+
+[resource]
+script = ExtResource("1_devw1")
+Name = "Red Reliquary"
+Description = "A living relic of ancient fleshcraft. It doesn't restore your health—it reminds your body how to rebuild itself."
+Attack = 0
+Health = 0
+Cost = 10
+EffectDescription = "Restore 3HP"
+Effects = Array[int]([])
+Rarity = 0
+Type = 20
+Button = 65535
+metadata/_custom_type_script = "uid://csjxym2rrc1sd"

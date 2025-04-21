@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="CardDefinition" load_steps=3 format=3 uid="uid://da58wu8d77rsg"]
+
+[ext_resource type="Resource" uid="uid://dj1e6bvpgqstj" path="res://Resources/Heroes/Atherex.tres" id="1_guwoy"]
+[ext_resource type="Script" uid="uid://csjxym2rrc1sd" path="res://Scripts/Resources/CardDefinition.cs" id="2_g1quw"]
+
+[resource]
+script = ExtResource("2_g1quw")
+Name = "Umbilical Bloom"
+Description = "You don't plant it. You feed it."
+Cost = 2
+EffectDescription = "Spawn a Living Bloom (1/2) on an empty tile"
+Effects = Array[int]([])
+Rarity = 65535
+Type = 0
+Button = 0
+HeroDefinition = ExtResource("1_guwoy")
+metadata/_custom_type_script = "uid://csjxym2rrc1sd"

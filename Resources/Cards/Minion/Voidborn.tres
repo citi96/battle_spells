@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="CardDefinition" load_steps=3 format=3 uid="uid://u2a4df4wwavy"]
+
+[ext_resource type="Resource" uid="uid://dj1e6bvpgqstj" path="res://Resources/Heroes/Atherex.tres" id="1_dkaus"]
+[ext_resource type="Script" uid="uid://csjxym2rrc1sd" path="res://Scripts/Resources/CardDefinition.cs" id="2_odmiq"]
+
+[resource]
+script = ExtResource("2_odmiq")
+Name = "Voidborn"
+Description = "Born without a name, purpose, or fear. It exists only to detonate."
+Attack = 2
+Health = 1
+Cost = 0
+EffectDescription = "Explodes dealing 1 damage to adiacent enemy minions"
+Effects = Array[int]([3])
+Rarity = 65535
+Type = 30
+Button = 65535
+HeroDefinition = ExtResource("1_dkaus")
+metadata/_custom_type_script = "uid://csjxym2rrc1sd"

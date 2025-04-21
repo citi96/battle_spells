@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="CardDefinition" load_steps=3 format=3 uid="uid://dj657gwwmcuvf"]
+
+[ext_resource type="Resource" uid="uid://dj1e6bvpgqstj" path="res://Resources/Heroes/Atherex.tres" id="1_k72e8"]
+[ext_resource type="Script" uid="uid://csjxym2rrc1sd" path="res://Scripts/Resources/CardDefinition.cs" id="2_qq2fl"]
+
+[resource]
+script = ExtResource("2_qq2fl")
+Name = "Reversal of Flesh"
+Description = "Even gravity obeys the womb."
+Cost = 3
+EffectDescription = "Deal 1 HP to all enemy minions, they also gain the “Dizzy(1)” status"
+Effects = Array[int]([])
+Rarity = 65535
+Type = 0
+Button = 10
+HeroDefinition = ExtResource("1_k72e8")
+metadata/_custom_type_script = "uid://csjxym2rrc1sd"

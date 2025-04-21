@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="CardDefinition" load_steps=3 format=3 uid="uid://65uaromt6lca"]
+
+[ext_resource type="Resource" uid="uid://dj1e6bvpgqstj" path="res://Resources/Heroes/Atherex.tres" id="1_pasiw"]
+[ext_resource type="Script" uid="uid://csjxym2rrc1sd" path="res://Scripts/Resources/CardDefinition.cs" id="2_1rbkq"]
+
+[resource]
+script = ExtResource("2_1rbkq")
+Name = "Womb Shroud"
+Description = "Pain enters. Pain leaves with interest."
+Cost = 2
+EffectDescription = "Gain “Reflect(1)” if the effect is still up at the end of the minion phase spawn a Fleshbud"
+Effects = Array[int]([])
+Rarity = 65535
+Type = 0
+Button = 20
+HeroDefinition = ExtResource("1_pasiw")
+metadata/_custom_type_script = "uid://csjxym2rrc1sd"

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="HeroDefinition" load_steps=2 format=3 uid="uid://bov1gau3txj7t"]
+
+[ext_resource type="Script" uid="uid://dgd66ri77gf36" path="res://Scripts/Resources/HeroDefinition.cs" id="1_1q06v"]
+
+[resource]
+script = ExtResource("1_1q06v")
+HeroName = "Ulborh, the Breathing Throne"
+BaseHP = 30
+BaseOrbs = 1
+Description = "Fused eternally with a biomechanical chair. Legless, with respiratory bells and six moving mandibles."
+metadata/_custom_type_script = "uid://dgd66ri77gf36"

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="CardDefinition" load_steps=3 format=3 uid="uid://p4cthboxtf44"]
+
+[ext_resource type="Resource" uid="uid://dj1e6bvpgqstj" path="res://Resources/Heroes/Atherex.tres" id="1_r1dsl"]
+[ext_resource type="Script" uid="uid://csjxym2rrc1sd" path="res://Scripts/Resources/CardDefinition.cs" id="2_lvtp0"]
+
+[resource]
+script = ExtResource("2_lvtp0")
+Name = "Cathedral of Unbirth"
+Description = "And lo, the vault opened, and the choir crawled forth."
+Cost = 6
+EffectDescription = "Spawn The Cathedral (0/10)"
+Effects = Array[int]([])
+Rarity = 65535
+Type = 0
+Button = 30
+HeroDefinition = ExtResource("1_r1dsl")
+metadata/_custom_type_script = "uid://csjxym2rrc1sd"

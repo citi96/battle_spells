@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="CardDefinition" load_steps=3 format=3 uid="uid://34xewo31ofs1"]
+
+[ext_resource type="Resource" uid="uid://dj1e6bvpgqstj" path="res://Resources/Heroes/Atherex.tres" id="1_p5p41"]
+[ext_resource type="Script" uid="uid://csjxym2rrc1sd" path="res://Scripts/Resources/CardDefinition.cs" id="2_s12nj"]
+
+[resource]
+script = ExtResource("2_s12nj")
+Name = "Cathedral Body"
+Description = "The dead are not lost. They are architecture now."
+Cost = 0
+EffectDescription = "Each time a unit dies, summon a “Fleshbud” in an adjacent tile (1/1 biomech minion). Atherex absorbs them at the end of turn to heal 1 HP per unit."
+Effects = Array[int]([])
+Rarity = 65535
+Type = 0
+Button = 40
+HeroDefinition = ExtResource("1_p5p41")
+metadata/_custom_type_script = "uid://csjxym2rrc1sd"

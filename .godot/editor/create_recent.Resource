@@ -1,0 +1,2 @@
+CardDefinition
+HeroDefinition

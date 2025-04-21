@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="HeroDefinition" load_steps=2 format=3 uid="uid://dj1e6bvpgqstj"]
+
+[ext_resource type="Script" uid="uid://dgd66ri77gf36" path="res://Scripts/Resources/HeroDefinition.cs" id="1_lacyi"]
+
+[resource]
+script = ExtResource("1_lacyi")
+HeroName = "Atherex, the Womb Vault"
+BaseHP = 30
+BaseOrbs = 1
+Description = "A reversed-gravity being with a cathedral-like abdomen. No eyes, only a vertical mouth and skeletal arches rising from her back."
+metadata/_custom_type_script = "uid://dgd66ri77gf36"
