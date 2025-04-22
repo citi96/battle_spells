@@ -3,7 +3,10 @@
     public class PlayerMatchState
     {
         public Guid Id { get; set; }
-        
+
+        public Guid PlayerId { get; set; }
+        public Guid HeroId { get; set; }
+
         public required Player Player { get; set; }
         public required Hero Hero { get; set; }
 

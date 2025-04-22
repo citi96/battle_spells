@@ -40,6 +40,12 @@ namespace Battle_Spells.Api.Data
                 .HasForeignKey(e => e.ConditionalEffectId)
                 .IsRequired(false);
 
+            modelBuilder.Entity<EffectDefinition>()
+                .HasMany(e => e.SubEffects)
+                .WithOne()
+                .HasForeignKey("ParentEffectId")
+                .IsRequired(false);
+
             // MatchAction
             modelBuilder.Entity<MatchAction>()
                 .HasOne(a => a.Match)
@@ -85,6 +91,30 @@ namespace Battle_Spells.Api.Data
                 .HasOne(pms => pms.Hero)
                 .WithMany()
                 .HasForeignKey("HeroId");
+
+            modelBuilder.Entity<PlayerMatchState>()
+                .HasMany(pms => pms.Hand)
+                .WithOne()
+                .HasForeignKey("PlayerMatchStateHandId")
+                .IsRequired(false);
+
+            modelBuilder.Entity<PlayerMatchState>()
+                .HasMany(pms => pms.Graveyard)
+                .WithOne()
+                .HasForeignKey("PlayerMatchStateGraveyardId")
+                .IsRequired(false);
+
+            modelBuilder.Entity<PlayerMatchState>()
+                .HasMany(pms => pms.Deck.OfType<MatchPlayerCard>())
+                .WithOne()
+                .HasForeignKey("PlayerMatchStateDeckId")
+                .IsRequired(false);
+
+            modelBuilder.Entity<PlayerMatchState>()
+                .HasMany(pms => pms.Shop.OfType<MatchPlayerCard>())
+                .WithOne()
+                .HasForeignKey("PlayerMatchStateShopId")
+                .IsRequired(false);
 
             // Hero
             modelBuilder.Entity<Hero>()

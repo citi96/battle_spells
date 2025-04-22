@@ -19,6 +19,11 @@ namespace Battle_Spells.Api.Repositories
         public async Task<Match?> GetMatchWithPlayersAsync(Guid matchId)
         {
             return await dbContext.Matches
+                .Include(g => g.Player1)
+                .Include(g => g.Player2)
+                .Include(g => g.CurrentPlayer)
+                .Include(g => g.Player1MatchState)
+                .Include(g => g.Player2MatchState)
                 .FirstOrDefaultAsync(g => g.Id == matchId);
         }
 
