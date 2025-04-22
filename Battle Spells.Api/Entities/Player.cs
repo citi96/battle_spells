@@ -1,0 +1,13 @@
+﻿namespace Battle_Spells.Api.Entities
+{
+    public class Player
+    {
+        public Guid Id { get; set; }
+        public string Name { get; set; } = string.Empty;
+        public int MMR { get; set; }
+        public Guid MatchId { get; set; }
+
+        public virtual Match Match { get; set; } = null!;
+        public virtual ICollection<PlayerCard> PlayerCards { get; set; } = [];
+    }
+}
