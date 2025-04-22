@@ -12,6 +12,9 @@ namespace Battle_Spells.Api.Repositories
         {
             return await dbContext.Cards
                 .Include(c => c.Effects)
+                    .ThenInclude(e => e.SubEffects)
+                .Include(c => c.Effects)
+                    .ThenInclude(e => e.ConditionalEffect)
                 .FirstOrDefaultAsync(c => c.Id == cardId);
         }
 
@@ -19,6 +22,9 @@ namespace Battle_Spells.Api.Repositories
         {
             return await dbContext.Cards
                 .Include(c => c.Effects)
+                    .ThenInclude(e => e.SubEffects)
+                .Include(c => c.Effects)
+                    .ThenInclude(e => e.ConditionalEffect)
                 .Where(predicate)
                 .ToListAsync();
         }

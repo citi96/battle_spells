@@ -19,6 +19,26 @@ namespace Battle_Spells.Api.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            // Match
+            modelBuilder.Entity<Match>()
+                .HasOne(m => m.CurrentPlayer)
+                .WithMany()
+                .HasForeignKey(m => m.CurrentPlayerId)
+                .IsRequired(false);
+
+            // Aggiungere la configurazione per Match.Player1 e Match.Player2
+            modelBuilder.Entity<Match>()
+                .HasOne(m => m.Player1)
+                .WithMany()
+                .HasForeignKey("Player1Id")
+                .IsRequired(false);
+
+            modelBuilder.Entity<Match>()
+                .HasOne(m => m.Player2)
+                .WithMany()
+                .HasForeignKey("Player2Id")
+                .IsRequired(false);
+
             // PlayerCard 
             modelBuilder.Entity<PlayerCard>()
                 .HasKey(pc => new { pc.PlayerId, pc.CardId });

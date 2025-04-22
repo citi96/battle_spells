@@ -46,7 +46,7 @@ namespace Battle_Spells.Api.Services
                 {
                     // Aggiorna i campi
                     existingCard.Name = cardDto.Name;
-                    existingCard.Flavor = cardDto.Description;
+                    existingCard.Flavor = cardDto.Flavor;
                     existingCard.ManaCost = cardDto.Cost;
                     existingCard.ActivationEffects = cardDto.Effects;
                     existingCard.EffectDescription = cardDto.EffectDescription;
@@ -62,10 +62,10 @@ namespace Battle_Spells.Api.Services
                     var newCard = new Card
                     {
                         Name = cardDto.Name,
-                        Description = cardDto.Description,
+                        Flavor = cardDto.Flavor,
                         Cost = cardDto.Cost,
                         EffectDescription = cardDto.EffectDescription,
-                        Effects = cardDto.Effects,
+                        ActivationEffects = cardDto.Effects,
                         Rarity = cardDto.Rarity,
                         Type = cardDto.Type,
                         HeroId = cardDto.HeroId
