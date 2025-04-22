@@ -12,7 +12,22 @@ namespace Battle_Spells.Api.Entities
         public int Attack { get; set; }
         public int Cost { get; set; }
         public string EffectDescription { get; set; } = string.Empty;
-        public IEnumerable<ECardEffectActivation> ActivationEffects { get; set; } = [];
+
+        private string _activationEffectsData = string.Empty;
+        public IEnumerable<ECardEffectActivation> ActivationEffects
+        {
+            get => string.IsNullOrEmpty(_activationEffectsData)
+                ? []
+                : _activationEffectsData.Split(',').Select(e => Enum.Parse<ECardEffectActivation>(e));
+            set => _activationEffectsData = string.Join(",", value.Select(e => e.ToString()));
+        }
+
+        public string ActivationEffectsData
+        {
+            get => _activationEffectsData;
+            set => _activationEffectsData = value;
+        }
+
         public ECardRarity Rarity { get; set; } = ECardRarity.Unknown;
         public ECardType Type { get; set; } = ECardType.Unknown;
         public Guid? HeroId { get; set; }

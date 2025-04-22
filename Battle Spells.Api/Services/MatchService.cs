@@ -1,6 +1,5 @@
 ﻿using Battle_Spells.Api.Entities;
 using Battle_Spells.Api.Helpers;
-using Battle_Spells.Api.Repositories;
 using Battle_Spells.Api.Repositories.Interfaces;
 using Battle_Spells.Api.Services.Interfaces;
 using Battle_Spells.Models.Enums.Card;
@@ -8,8 +7,8 @@ using Battle_Spells.Models.Enums.Match;
 
 namespace Battle_Spells.Api.Services
 {
-    public class MatchService(IDeckService deckService, IMatchRepository matchRepository, IPlayerRepository playerRepository, 
-        IMatchPlayerCardRepository matchPlayerCardRepository, IHeroRepository heroRepository, ICardRepository cardRepository) : IMatchService
+    public class MatchService(IDeckService deckService, IMatchRepository matchRepository, IPlayerRepository playerRepository,
+        IHeroRepository heroRepository, ICardRepository cardRepository) : IMatchService
     {
         public async Task<Match> CreateMatchAsync(Guid playerId, Guid heroId, List<Guid> deckCardIds)
         {
@@ -86,12 +85,25 @@ namespace Battle_Spells.Api.Services
             if (!await deckService.Validate(player.Id, deckCardIds))
                 throw new APIException("Invalid deck.", System.Net.HttpStatusCode.BadRequest);
 
-            match.Player2 = player;
-            match.Player2MatchState = new()
+            var cards = await cardRepository.GetByQueryAsync(c => deckCardIds.Contains(c.Id));
+            var deckCards = cards.Select(card => new MatchPlayerCard
             {
+                Card = card,
+                CardId = card.Id,
+                CurrentHealt = card.MaxHealth,
+                Location = ECardLocation.Deck
+            }).ToList();
+
+            match.Player2 = player;
+            match.Player2Id = player.Id;
+            match.Player2MatchState = new PlayerMatchState
+            {
+                Id = Guid.NewGuid(),
+                HeroId = hero.Id,
                 Hero = hero,
+                PlayerId = player.Id,
                 Player = player,
-                Deck = await matchPlayerCardRepository.GetByQueryAsync(c => deckCardIds.Contains(c.Id)),
+                Deck = deckCards
             };
 
             await matchRepository.UpdateMatchAsync(match);

@@ -40,15 +40,13 @@ namespace Battle_Spells.Api.Services
             // Sincronizza le carte
             foreach (var cardDto in request.Cards)
             {
-                // Controlla se una carta con lo stesso CardName esiste già
                 var existingCard = await dbContext.Cards.FirstOrDefaultAsync(c => c.Name.Equals(cardDto.Name, StringComparison.CurrentCultureIgnoreCase));
                 if (existingCard != null)
                 {
-                    // Aggiorna i campi
                     existingCard.Name = cardDto.Name;
                     existingCard.Flavor = cardDto.Flavor;
                     existingCard.ManaCost = cardDto.Cost;
-                    existingCard.ActivationEffects = cardDto.Effects;
+                    existingCard.ActivationEffectsData = string.Join(",", cardDto.Effects.Select(e => e.ToString()));
                     existingCard.EffectDescription = cardDto.EffectDescription;
                     existingCard.Rarity = cardDto.Rarity;
                     existingCard.Type = cardDto.Type;

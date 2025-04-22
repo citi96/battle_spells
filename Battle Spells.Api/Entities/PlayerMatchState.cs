@@ -7,11 +7,11 @@
         public Guid PlayerId { get; set; }
         public Guid HeroId { get; set; }
 
-        public required Player Player { get; set; }
-        public required Hero Hero { get; set; }
+        public virtual Player Player { get; set; } = null!;
+        public virtual Hero Hero { get; set; } = null!;
 
-        public virtual IEnumerable<MatchPlayerCard> Deck { get; set; } = [];
-        public virtual IEnumerable<MatchPlayerCard> Shop { get; set; } = [];
+        public virtual ICollection<MatchPlayerCard> Deck { get; set; } = [];
+        public virtual ICollection<MatchPlayerCard> Shop { get; set; } = [];
         public virtual ICollection<MatchPlayerCard> Hand { get; set; } = [];
         public virtual ICollection<MatchPlayerCard> Graveyard { get; set; } = [];
     }
