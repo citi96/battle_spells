@@ -68,6 +68,37 @@ namespace Battle_Spells.Api.Data
                 .HasOne(c => c.Action)
                 .WithMany()
                 .HasForeignKey(c => c.ActionId);
+
+            // MatchPlayerCard 
+            modelBuilder.Entity<MatchPlayerCard>()
+                .HasOne(mpc => mpc.Card)
+                .WithMany()
+                .HasForeignKey("CardId");
+
+            // PlayerMatchState 
+            modelBuilder.Entity<PlayerMatchState>()
+                .HasOne(pms => pms.Player)
+                .WithOne()
+                .HasForeignKey<PlayerMatchState>("PlayerId");
+
+            modelBuilder.Entity<PlayerMatchState>()
+                .HasOne(pms => pms.Hero)
+                .WithMany()
+                .HasForeignKey("HeroId");
+
+            // Hero
+            modelBuilder.Entity<Hero>()
+                .HasMany(h => h.Spells)
+                .WithOne()
+                .HasForeignKey("HeroId")
+                .IsRequired(false);
+
+            // Card
+            modelBuilder.Entity<Card>()
+                .HasMany(c => c.Effects)
+                .WithOne()
+                .HasForeignKey("CardId")
+                .IsRequired(false);
         }
     }
 }
