@@ -1,6 +1,6 @@
 ﻿namespace Battle_Spells.Api.Entities
 {
-    public class PlayerMatchState
+    public class MatchPlayerState
     {
         public Guid Id { get; set; }
 

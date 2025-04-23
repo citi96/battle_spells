@@ -45,7 +45,7 @@ namespace Battle_Spells.Api.Services
                 Name = $"Auto Match #{Guid.NewGuid().ToString()[..8]}",
                 Player1 = player,
                 Player1Id = player.Id,
-                Player1MatchState = new PlayerMatchState
+                Player1MatchState = new MatchPlayerState
                 {
                     Id = Guid.NewGuid(),
                     Hero = hero,
@@ -96,7 +96,7 @@ namespace Battle_Spells.Api.Services
 
             match.Player2 = player;
             match.Player2Id = player.Id;
-            match.Player2MatchState = new PlayerMatchState
+            match.Player2MatchState = new MatchPlayerState
             {
                 Id = Guid.NewGuid(),
                 HeroId = hero.Id,
