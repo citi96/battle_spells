@@ -29,7 +29,7 @@ namespace Battle_Spells.Api.Data.Configurations
                 .HasForeignKey(a => a.TargetCardId)
                 .IsRequired(false);
 
-            builder.HasMany<MatchStateChange>("ProcessedChanges")
+            builder.HasMany(ma => ma.ProcessedChanges)
                 .WithOne(msc => msc.Action)
                 .HasForeignKey(msc => msc.ActionId);
         }

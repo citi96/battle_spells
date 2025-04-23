@@ -1,6 +1,0 @@
-@Battle_Spells.Api_HostAddress = http://localhost:5243
-
-GET {{Battle_Spells.Api_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

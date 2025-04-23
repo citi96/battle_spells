@@ -1,6 +1,8 @@
 using System;
 using Battle_Spells.Api.Data;
 using Battle_Spells.Api.Hubs;
+using Battle_Spells.Api.Repositories;
+using Battle_Spells.Api.Repositories.Interfaces;
 using Battle_Spells.Api.Services;
 using Battle_Spells.Api.Services.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -13,8 +15,18 @@ builder.Services.AddDbContext<BattleSpellsDbContext>(options =>
     options.UseSqlite("Data Source=BattleSpells.db"));
 
 // Registrazione dei servizi
+builder.Services.AddScoped<IDeckService, DeckService>();
+builder.Services.AddScoped<IMatchmakingService, MatchmakingService>();
 builder.Services.AddScoped<IMatchService, MatchService>();
+builder.Services.AddScoped<INotificationService, NotificationService>();
 builder.Services.AddScoped<ISyncService, SyncService>();
+
+builder.Services.AddScoped<ICardRepository, CardRepository>();
+builder.Services.AddScoped<IHeroRepository, HeroRepository>();
+builder.Services.AddScoped<IMatchPlayerCardRepository, MatchPlayerCardRepository>();
+builder.Services.AddScoped<IMatchRepository, MatchRepository>();
+builder.Services.AddScoped<IPlayerCardRepository, PlayerCardRepository>();
+builder.Services.AddScoped<IPlayerRepository, PlayerRepository>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
