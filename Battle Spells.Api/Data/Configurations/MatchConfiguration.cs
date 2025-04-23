@@ -33,13 +33,11 @@ namespace Battle_Spells.Api.Data.Configurations
 
             builder.HasOne(m => m.Player1MatchState)
                 .WithOne()
-                .HasForeignKey<MatchPlayerState>("MatchId")
-                .IsRequired(false);
+                .HasForeignKey<Match>(m => m.Player1MatchStateId);
 
             builder.HasOne(m => m.Player2MatchState)
                 .WithOne()
-                .HasForeignKey<MatchPlayerState>("MatchId")
-                .IsRequired(false);
+                .HasForeignKey<Match>(m => m.Player2MatchStateId);
         }
     }
 }
