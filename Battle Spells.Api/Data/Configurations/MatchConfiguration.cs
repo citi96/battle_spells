@@ -30,6 +30,16 @@ namespace Battle_Spells.Api.Data.Configurations
                 .WithOne(ma => ma.Match)
                 .HasForeignKey(ma => ma.MatchId)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            builder.HasOne(m => m.Player1MatchState)
+                .WithOne()
+                .HasForeignKey<MatchPlayerState>("MatchId")
+                .IsRequired(false);
+
+            builder.HasOne(m => m.Player2MatchState)
+                .WithOne()
+                .HasForeignKey<MatchPlayerState>("MatchId")
+                .IsRequired(false);
         }
     }
 }

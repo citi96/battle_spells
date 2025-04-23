@@ -18,6 +18,8 @@ namespace Battle_Spells.Api.Entities
         public virtual Player? Player1 { get; set; }
         public virtual Player? Player2 { get; set; }
 
+        public Guid? Player1MatchStateId { get; set; }
+        public Guid? Player2MatchStateId { get; set; }
         public virtual MatchPlayerState? Player1MatchState { get; set; }
         public virtual MatchPlayerState? Player2MatchState { get; set; }
 

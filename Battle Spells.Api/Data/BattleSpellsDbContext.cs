@@ -21,7 +21,9 @@ namespace Battle_Spells.Api.Data
         {
             base.OnModelCreating(modelBuilder);
 
+            modelBuilder.ApplyConfiguration(new CardConfiguration());
             modelBuilder.ApplyConfiguration(new EffectDefinitionConfiguration());
+            modelBuilder.ApplyConfiguration(new HeroConfiguration());
             modelBuilder.ApplyConfiguration(new MatchActionConfiguration());
             modelBuilder.ApplyConfiguration(new MatchConfiguration());
             modelBuilder.ApplyConfiguration(new MatchPlayerCardConfiguration());

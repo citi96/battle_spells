@@ -14,6 +14,11 @@ namespace Battle_Spells.Api.Data.Configurations
                 .WithMany()
                 .HasForeignKey(ed => ed.ConditionalEffectId)
                 .IsRequired(false);
+
+            builder.HasMany(ed => ed.SubEffects)
+                .WithOne()
+                .HasForeignKey(ed => ed.ParentEffectId)
+                .IsRequired(false);
         }
     }
 }

@@ -28,14 +28,14 @@ namespace Battle_Spells.Api.Data.Configurations
                 .HasForeignKey(mps => mps.PlayerMatchStateGraveyardId)
                 .IsRequired(false);
 
-            builder.HasMany(mps => mps.Deck.OfType<MatchPlayerCard>())
+            builder.HasMany(mps => mps.Deck)
                 .WithOne()
-                .HasForeignKey(mps => mps.PlayerMatchStateDeckId)
+                .HasForeignKey(mpc => mpc.PlayerMatchStateDeckId)
                 .IsRequired(false);
 
-            builder.HasMany(mps => mps.Shop.OfType<MatchPlayerCard>())
+            builder.HasMany(mps => mps.Shop)
                 .WithOne()
-                .HasForeignKey(mps => mps.PlayerMatchStateShopId)
+                .HasForeignKey(mpc => mpc.PlayerMatchStateShopId)
                 .IsRequired(false);
         }
     }
