@@ -4,20 +4,20 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Battle_Spells.Api.Data.Configurations
 {
-    public class PlayerCardConfiguration : IEntityTypeConfiguration<PlayerCard>
+    public class PlayerHeroConfiguration : IEntityTypeConfiguration<PlayerHero>
     {
-        public void Configure(EntityTypeBuilder<PlayerCard> builder)
+        public void Configure(EntityTypeBuilder<PlayerHero> builder)
         {
-            builder.HasKey(pc => new { pc.PlayerId, pc.CardId });
+            builder.HasKey(pc => new { pc.PlayerId, pc.HeroId });
 
             builder.HasOne(pc => pc.Player)
-                .WithMany(p => p.PlayerCards)
+                .WithMany(p => p.PlayerHeros)
                 .HasForeignKey(pc => pc.PlayerId)
                 .OnDelete(DeleteBehavior.NoAction);
 
-            builder.HasOne(pc => pc.Card)
+            builder.HasOne(pc => pc.Hero)
                 .WithOne()
-                .HasForeignKey<PlayerCard>(pc => pc.CardId)
+                .HasForeignKey<PlayerHero>(pc => pc.HeroId)
                 .OnDelete(DeleteBehavior.NoAction);
         }
     }

@@ -32,6 +32,5 @@ namespace Battle_Spells.Api.Entities
         public ECardType Type { get; set; } = ECardType.Unknown;
         public Guid? HeroId { get; set; }
         public virtual ICollection<EffectDefinition> Effects { get; set; } = [];
-        public virtual ICollection<PlayerCard> PlayerCards { get; set; } = [];
     }
 }

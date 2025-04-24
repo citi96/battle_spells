@@ -6,8 +6,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Battle_Spells.Api.Repositories
 {
-    public class PlayerRepository(BattleSpellsDbContext dbContext) : IPlayerRepository
+    public class PlayerRepository(BattleSpellsDbContext dbContext) : QueryableRepository<Player>, IPlayerRepository
     {
+        protected override DbSet<Player> Entities => dbContext.Players;
+        protected override IQueryable<Player>? IncludableQueryable => null;
+
         public async Task<Player?> GetPlayerByIdAsync(Guid playerId)
         {
             return await dbContext.Players

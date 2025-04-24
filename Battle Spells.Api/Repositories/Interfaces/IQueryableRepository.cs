@@ -2,8 +2,9 @@
 
 namespace Battle_Spells.Api.Repositories.Interfaces
 {
-    public interface IQueryableRepository<T>
+    public interface IQueryableRepository<TEntity>
     {
-        Task<IEnumerable<T>> GetByQueryAsync(Expression<Func<T, bool>> predicate);
+        Task<IEnumerable<TEntity>> GetByQueryAsync(Expression<Func<TEntity, bool>> predicate);
+        Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> predicate);
     }
 }

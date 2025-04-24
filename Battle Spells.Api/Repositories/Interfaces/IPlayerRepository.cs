@@ -2,7 +2,7 @@
 
 namespace Battle_Spells.Api.Repositories.Interfaces
 {
-    public interface IPlayerRepository
+    public interface IPlayerRepository : IQueryableRepository<Player>
     {
         Task<Player?> GetPlayerByIdAsync(Guid playerId);
         Task<List<Player>> GetPlayersByMatchIdAsync(Guid matchId);

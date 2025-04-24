@@ -23,7 +23,7 @@ namespace Battle_Spells.Api.Services
 
         public async Task<Match> CreateMatchAsync(Player player, Hero hero, List<Guid> deckCardIds)
         {
-            if (!await deckService.Validate(player.Id, deckCardIds))
+            if (!await deckService.ValidateUpgradesOwnershipAsync(player.Id, hero.Id, deckCardIds))
                 throw new APIException("Invalid deck.", System.Net.HttpStatusCode.BadRequest);
 
             // Ottieni le carte dal repository invece di usare matchPlayerCardRepository
@@ -62,9 +62,6 @@ namespace Battle_Spells.Api.Services
 
         public async Task<Match> JoinMatchAsync(Guid matchId, Guid playerId, Guid heroId, List<Guid> deckCardIds)
         {
-            if (!await deckService.Validate(playerId, deckCardIds))
-                throw new APIException("Invalid deck.", System.Net.HttpStatusCode.BadRequest);
-
             var match = await matchRepository.GetMatchByIdAsync(matchId) ??
                 throw new APIException($"Match with id {matchId} not found.", System.Net.HttpStatusCode.NotFound);
 
@@ -82,7 +79,10 @@ namespace Battle_Spells.Api.Services
 
         public async Task<Match> JoinMatchAsync(Match match, Player player, Hero hero, List<Guid> deckCardIds)
         {
-            if (!await deckService.Validate(player.Id, deckCardIds))
+            if (!await deckService.ValidateUpgradesOwnershipAsync(player.Id, hero.Id, deckCardIds))
+                throw new APIException("Invalid deck.", System.Net.HttpStatusCode.BadRequest);
+
+            if (!await deckService.ValidateUpgradesOwnershipAsync(player.Id, hero.Id, deckCardIds))
                 throw new APIException("Invalid deck.", System.Net.HttpStatusCode.BadRequest);
 
             var cards = await cardRepository.GetByQueryAsync(c => deckCardIds.Contains(c.Id));

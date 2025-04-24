@@ -21,7 +21,7 @@ namespace Battle_Spells.Api.Services
                 throw new APIException($"Player not found with ID {request.PlayerId}", HttpStatusCode.NotFound);
 
             var hero = await heroRepository.GetHeroByIdAsync(request.HeroId) ??
-               throw new APIException($"Hero not found with id {request.HeroId}.", System.Net.HttpStatusCode.BadRequest);
+               throw new APIException($"Hero not found with id {request.HeroId}.", HttpStatusCode.BadRequest);
 
             logger.LogInformation($"Cercando match per giocatore {player.Id} con MMR {player.MMR}");
 

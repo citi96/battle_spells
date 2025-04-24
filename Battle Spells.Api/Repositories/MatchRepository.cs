@@ -1,5 +1,4 @@
-﻿using System.Linq.Expressions;
-using Battle_Spells.Api.Data;
+﻿using Battle_Spells.Api.Data;
 using Battle_Spells.Api.Entities;
 using Battle_Spells.Api.Repositories.Interfaces;
 using Battle_Spells.Models.Enums.Match;
@@ -7,8 +6,26 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Battle_Spells.Api.Repositories
 {
-    public class MatchRepository(BattleSpellsDbContext dbContext) : IMatchRepository
+    public class MatchRepository(BattleSpellsDbContext dbContext) : QueryableRepository<Match>, IMatchRepository
     {
+        protected override DbSet<Match> Entities => dbContext.Matches;
+
+        protected override IQueryable<Match>? IncludableQueryable => 
+            dbContext.Matches
+                .Include(g => g.Player1)
+                .Include(g => g.Player2)
+                .Include(g => g.CurrentPlayer)
+                .Include(g => g.Player1MatchState)
+                    .ThenInclude(pms => pms!.Hero)
+                .Include(g => g.Player1MatchState)
+                    .ThenInclude(pms => pms!.Hand)
+                    .ThenInclude(h => h.Card)
+                .Include(g => g.Player2MatchState)
+                    .ThenInclude(pms => pms!.Hero)
+                .Include(g => g.Player2MatchState)
+                    .ThenInclude(pms => pms!.Hand)
+                    .ThenInclude(h => h.Card);
+
         public async Task<Match?> GetMatchByIdAsync(Guid matchId)
         {
             return await dbContext.Matches
@@ -56,26 +73,6 @@ namespace Battle_Spells.Api.Repositories
         {
             dbContext.Matches.Update(match);
             return Task.CompletedTask;
-        }
-
-        public async Task<IEnumerable<Match>> GetByQueryAsync(Expression<Func<Match, bool>> predicate)
-        {
-            return await dbContext.Matches
-                .Include(g => g.Player1)
-                .Include(g => g.Player2)
-                .Include(g => g.CurrentPlayer)
-                .Include(g => g.Player1MatchState)
-                    .ThenInclude(pms => pms!.Hero)
-                .Include(g => g.Player1MatchState)
-                    .ThenInclude(pms => pms!.Hand)
-                    .ThenInclude(h => h.Card)
-                .Include(g => g.Player2MatchState)
-                    .ThenInclude(pms => pms!.Hero)
-                .Include(g => g.Player2MatchState)
-                    .ThenInclude(pms => pms!.Hand)
-                    .ThenInclude(h => h.Card)
-                .Where(predicate)
-                .ToListAsync();
         }
     }
 }

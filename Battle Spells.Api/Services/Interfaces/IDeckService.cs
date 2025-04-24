@@ -2,6 +2,7 @@
 {
     public interface IDeckService
     {
-        Task<bool> Validate(Guid playerId, IEnumerable<Guid> cardIds);
+        Task<bool> ValidateUpgradesOwnershipAsync(Guid playerId, Guid heroId, IEnumerable<Guid> cardIds);
+        Task<bool> ValidateShopOwnershipAsync(Guid playerId, IEnumerable<Guid> cardIds);
     }
 }

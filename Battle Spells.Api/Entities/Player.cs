@@ -7,5 +7,6 @@
         public int MMR { get; set; }
         public Guid? MatchId { get; set; }
         public virtual ICollection<PlayerCard> PlayerCards { get; set; } = [];
+        public virtual ICollection<PlayerHero> PlayerHeros { get; set; } = [];
     }
 }

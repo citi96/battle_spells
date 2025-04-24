@@ -1,18 +1,14 @@
-﻿using System.Linq.Expressions;
-using Battle_Spells.Api.Data;
+﻿using Battle_Spells.Api.Data;
 using Battle_Spells.Api.Entities;
 using Battle_Spells.Api.Repositories.Interfaces;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Query;
 
 namespace Battle_Spells.Api.Repositories
 {
-    public class MatchPlayerCardRepository(BattleSpellsDbContext dbContext) : IMatchPlayerCardRepository
+    public class MatchPlayerCardRepository(BattleSpellsDbContext dbContext) : QueryableRepository<MatchPlayerCard>, IMatchPlayerCardRepository
     {
-        public async Task<IEnumerable<MatchPlayerCard>> GetByQueryAsync(Expression<Func<MatchPlayerCard, bool>> predicate)
-        {
-            return await dbContext.MatchPlayerCards
-                .Where(predicate)
-                .ToListAsync();
-        }
+        protected override DbSet<MatchPlayerCard> Entities => dbContext.MatchPlayerCards;
+        protected override IIncludableQueryable<MatchPlayerCard, MatchPlayerCard?>? IncludableQueryable => null;
     }
 }

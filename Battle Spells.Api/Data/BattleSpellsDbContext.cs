@@ -16,6 +16,7 @@ namespace Battle_Spells.Api.Data
         public DbSet<PlayerCard> PlayerCards { get; set; } = null!;
         public DbSet<MatchPlayerCard> MatchPlayerCards { get; set; } = null!;
         public DbSet<MatchPlayerState> PlayerMatchStates { get; set; } = null!;
+        public DbSet<PlayerHero> PlayerHero { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
