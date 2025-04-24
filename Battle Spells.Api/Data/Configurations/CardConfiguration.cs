@@ -11,9 +11,9 @@ namespace Battle_Spells.Api.Data.Configurations
             builder.HasKey(c => c.Id);
 
             builder.HasMany(c => c.Effects)
-                .WithOne()
-                .HasForeignKey(c => c.Id)
-                .IsRequired(false);
+                 .WithOne()
+                 .HasForeignKey(ed => ed.CardId)
+                 .IsRequired(false);
         }
     }
 }

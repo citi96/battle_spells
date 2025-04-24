@@ -15,5 +15,6 @@
         public virtual Player Player { get; set; } = null!;
         public virtual Card? SourceCard { get; set; }
         public virtual Card? TargetCard { get; set; }
+        public virtual ICollection<MatchStateChange> ProcessedChanges { get; set; } = [];
     }
 }

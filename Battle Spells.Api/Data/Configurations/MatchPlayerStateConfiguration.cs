@@ -21,22 +21,26 @@ namespace Battle_Spells.Api.Data.Configurations
             builder.HasMany(mps => mps.Hand)
                 .WithOne()
                 .HasForeignKey(mps => mps.PlayerMatchStateHandId)
-                .IsRequired(false);
+                .IsRequired(false)
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasMany(mps => mps.Graveyard)
                 .WithOne()
                 .HasForeignKey(mps => mps.PlayerMatchStateGraveyardId)
-                .IsRequired(false);
+                .IsRequired(false)
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasMany(mps => mps.Deck)
                 .WithOne()
                 .HasForeignKey(mpc => mpc.PlayerMatchStateDeckId)
-                .IsRequired(false);
+                .IsRequired(false)
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasMany(mps => mps.Shop)
                 .WithOne()
                 .HasForeignKey(mpc => mpc.PlayerMatchStateShopId)
-                .IsRequired(false);
+                .IsRequired(false)
+                .OnDelete(DeleteBehavior.Cascade);
         }
     }
 }

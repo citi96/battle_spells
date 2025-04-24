@@ -14,5 +14,6 @@ namespace Battle_Spells.Api.Entities
         public virtual EffectDefinition? ConditionalEffect { get; set; }
         public Guid? ConditionalEffectId { get; set; }
         public ECardEffectCondition Condition { get; set; } = ECardEffectCondition.Unknown;
+        public Guid? CardId { get; set; }
     }
 }

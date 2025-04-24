@@ -12,11 +12,13 @@ namespace Battle_Spells.Api.Data.Configurations
 
             builder.HasOne(pc => pc.Player)
                 .WithMany(p => p.PlayerCards)
-                .HasForeignKey(pc => pc.PlayerId);
+                .HasForeignKey(pc => pc.PlayerId)
+                .OnDelete(DeleteBehavior.NoAction);
 
             builder.HasOne(pc => pc.Card)
                 .WithMany(c => c.PlayerCards)
-                .HasForeignKey(pc => pc.CardId);
+                .HasForeignKey(pc => pc.CardId)
+                .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

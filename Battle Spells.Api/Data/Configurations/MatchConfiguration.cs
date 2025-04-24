@@ -33,11 +33,13 @@ namespace Battle_Spells.Api.Data.Configurations
 
             builder.HasOne(m => m.Player1MatchState)
                 .WithOne()
-                .HasForeignKey<Match>(m => m.Player1MatchStateId);
+                .HasForeignKey<Match>(m => m.Player1MatchStateId)
+                .OnDelete(DeleteBehavior.Restrict);
 
             builder.HasOne(m => m.Player2MatchState)
                 .WithOne()
-                .HasForeignKey<Match>(m => m.Player2MatchStateId);
+                .HasForeignKey<Match>(m => m.Player2MatchStateId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
