@@ -1,6 +1,0 @@
-res://Scripts/Admin/AdminTab.cs
-res://Scripts/Resources/HeroDefinition.cs
-res://Scripts/Managers/MatchmakingManager.cs
-res://Scripts/Managers/NetworkManager.cs
-res://Scripts/MainMenu.cs
-res://Scripts/Resources/CardDefinition.cs

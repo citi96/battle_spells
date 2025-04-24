@@ -31,7 +31,7 @@ namespace Battle_Spells.Api.Services
                 logger.LogInformation($"Match trovato: {match.Id} per giocatore {player.Id}");
 
                 await matchService.JoinMatchAsync(match, player, hero, request.DeckCardIds);
-                await notificationService.NotifyMatchFoundAsync(match.Id, [match.Player1!.Id, match.Player2!.Id]);
+                await notificationService.NotifyMatchStartedAsync(match.Id);
                 return new MatchmackingResponse(match.Id, EMatchState.Started);
             }
 
