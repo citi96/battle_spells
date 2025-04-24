@@ -5,7 +5,6 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>Battle_Spells.Api</RootNamespace>
-    <BaseOutputPath>D:\Users\Franc\Documents\battle-spells\Battle Spells.Api\bin</BaseOutputPath>
   </PropertyGroup>
 
   <ItemGroup>
