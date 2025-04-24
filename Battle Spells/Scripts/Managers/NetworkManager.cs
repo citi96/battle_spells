@@ -1,144 +1,116 @@
+using Battle_Spells.model.Enums.Hub;
+using Godot;
+using Microsoft.AspNetCore.SignalR.Client;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.Json;
-using Godot;
+using System.Threading.Tasks;
 using HttpClient = Godot.HttpClient;
 
 namespace BattleSpells.Scripts.Managers
 {
     public partial class NetworkManager : Node
     {
-        // Definizione dei delegati per i callback
-        public delegate void WebSocketMessageReceived(Dictionary<string, object> messageData);
+        public delegate void SignalRMessageReceived(Dictionary<string, object> messageData);
         public delegate void HttpResponseReceived(long result, long responseCode, string[] headers, byte[] body);
 
         // Eventi che altri oggetti possono sottoscrivere
-        public event WebSocketMessageReceived OnWebSocketMessageReceived;
+        public event SignalRMessageReceived OnSignalRMessageReceived;
         public event HttpResponseReceived OnHttpResponseReceived;
 
-        private readonly WebSocketMultiplayerPeer _peer = new();
-        private bool _wsConnected = false;
+        [Export] public string RestBaseUrl { get; set; } = "http://localhost:5000";
+        [Export] public string HubUrl { get; set; } = "ws://localhost:5000/ws";
+        [Export] public string PlayerJwt { get; set; } = string.Empty;
 
+        private HubConnection _hub;
         private HttpRequest _httpRequest;
 
-        [Export] public string WebSocketUrl { get; set; } = "ws://localhost:8080";
 
-        [Signal] public delegate void WebSocketConnectedEventHandler();
-        [Signal] public delegate void WebSocketDisconnectedEventHandler();
-
-        public override void _Ready()
+        public override async void _Ready()
         {
-            // Inizializza la parte WebSocket:
-            Multiplayer.MultiplayerPeer = _peer;
-            Multiplayer.PeerConnected += OnPeerConnected;
-            Multiplayer.PeerDisconnected += OnPeerDisconnected;
-            Multiplayer.ConnectedToServer += OnConnectedToServer;
-            Multiplayer.ConnectionFailed += OnConnectionFailed;
+            await InitSignalR();
 
-            // Avvia la connessione WebSocket:
-            Error wsError = _peer.CreateClient(WebSocketUrl);
-            if (wsError != Error.Ok)
-            {
-                GD.PrintErr($"Errore durante la connessione al server WebSocket: {wsError}");
-            }
-
-            // Inizializza la parte HTTP: crea un nodo HTTPRequest come child
             _httpRequest = new HttpRequest();
             AddChild(_httpRequest);
-            // Connetti il segnale di default per richieste HTTP
             _httpRequest.RequestCompleted += OnHttpRequestCompleted;
+        }
+
+        public override void _ExitTree()
+        {
+            _ = _hub?.DisposeAsync();
         }
 
         public override void _Process(double delta)
         {
-            // Aggiorna il peer WebSocket
-            _peer.Poll();
+            
+        }
 
-            if (_wsConnected && _peer.GetAvailablePacketCount() > 0)
+        #region SignalR Methods
+
+        private async Task InitSignalR()
+        {
+            var builder = new HubConnectionBuilder()
+                .WithUrl(HubUrl, options =>
+                {
+                    if (!string.IsNullOrWhiteSpace(PlayerJwt))
+                    {
+                        options.AccessTokenProvider = () => Task.FromResult(PlayerJwt);
+                    }
+                })
+                .WithAutomaticReconnect();
+
+            _hub = builder.Build();
+
+            // Handler generico: tutti i push passano da qui
+            _hub.On<object>(EHubEvent.ReceiveMatchEvent.ToString(), raw =>
             {
-                byte[] packet = _peer.GetPacket();
-                string msg = Encoding.UTF8.GetString(packet);
-                GD.Print("Messaggio ricevuto via WS: " + msg);
-                ProcessWebSocketMessage(msg);
-            }
-        }
+                try
+                {
+                    var dict = JsonSerializer.Deserialize<Dictionary<string, object>>(raw.ToString());
+                    if (dict != null)
+                        OnSignalRMessageReceived?.Invoke(dict);
+                }
+                catch (Exception ex)
+                {
+                    GD.PrintErr($"Errore parsing push SignalR: {ex.Message}");
+                }
+            });
 
-        #region WebSocket Methods
-
-        private void OnPeerConnected(long id)
-        {
-            _wsConnected = true;
-            GD.Print("Connesso al server tramite WebSocketMultiplayerPeer.");
-            EmitSignal(SignalName.WebSocketConnected);
-        }
-
-        private void OnPeerDisconnected(long id)
-        {
-            _wsConnected = false;
-            GD.Print($"Peer disconnesso: {id}");
-            EmitSignal(SignalName.WebSocketDisconnected);
-        }
-
-        private void OnConnectedToServer()
-        {
-            _wsConnected = true;
-            GD.Print("Connesso al server WebSocket.");
-            EmitSignal(SignalName.WebSocketConnected);
-        }
-
-        private void OnConnectionFailed()
-        {
-            _wsConnected = false;
-            GD.PrintErr("Connessione al server WebSocket fallita.");
-        }
-
-        /// <summary>
-        /// Invia un messaggio via WebSocket
-        /// </summary>
-        /// <param name="message">Messaggio da inviare in formato dizionario</param>
-        /// <returns>True se il messaggio è stato inviato, false altrimenti</returns>
-        public bool SendWebSocketMessage(Dictionary<string, object> message)
-        {
-            if (!_wsConnected)
-            {
-                GD.PrintErr("WebSocket non connesso; impossibile inviare il messaggio.");
-                return false;
-            }
-            string jsonMsg = JsonSerializer.Serialize(message);
-            byte[] data = Encoding.UTF8.GetBytes(jsonMsg);
-            _peer.PutPacket(data);
-            return true;
-        }
-
-        /// <summary>
-        /// Elabora il messaggio ricevuto dal WebSocket
-        /// </summary>
-        /// <param name="message">Messaggio ricevuto in formato JSON</param>
-        private void ProcessWebSocketMessage(string message)
-        {
+            // Connessione
             try
             {
-                var data = JsonSerializer.Deserialize<Dictionary<string, object>>(message);
-                if (data != null)
-                {
-                    // Notifica gli ascoltatori
-                    OnWebSocketMessageReceived?.Invoke(data);
-
-                    // Logica interna
-                    if (data.TryGetValue("state", out object value))
-                    {
-                        GD.Print("Stato aggiornato: " + value.ToString());
-                    }
-
-                    // Puoi aggiungere logica specifica qui se necessario
-                }
+                await _hub.StartAsync();
+                GD.Print($"[SignalR] Connesso – ConnectionId {_hub.ConnectionId}");
             }
             catch (Exception ex)
             {
-                GD.PrintErr("Errore nel parsing del messaggio WS: " + ex.Message);
+                GD.PrintErr($"[SignalR] Connessione fallita: {ex.Message}");
             }
         }
+
+        /// <summary>
+        /// Non mi serve la tengo come template per le prossime chiamate
+        /// </summary>
+        public async Task JoinMatchGroup(Guid matchId)
+        {
+            if (_hub == null || _hub.State != HubConnectionState.Connected)
+            {
+                GD.PrintErr("[SignalR] Non connesso: impossibile JoinMatchGroup");
+                return;
+            }
+
+            try
+            {
+                await _hub.InvokeAsync("JoinMatchGroup", matchId.ToString());
+                GD.Print($"[SignalR] JoinMatchGroup {matchId}");
+            }
+            catch (Exception ex)
+            {
+                GD.PrintErr($"[SignalR] JoinMatchGroup errore: {ex.Message}");
+            }
+        }
+
         #endregion
 
         #region HTTP Methods

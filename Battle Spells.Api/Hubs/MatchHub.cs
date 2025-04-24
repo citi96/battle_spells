@@ -1,33 +1,27 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using Battle_Spells.Api.Singletons.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
 
 namespace Battle_Spells.Api.Hubs
 {
     [Authorize]
-    public class MatchHub : Hub
+    public class MatchHub(IPlayerConnectionTracker tracker, ILogger<MatchHub> log) : Hub
     {
-        public async Task JoinMatchGroup(string matchId)
+        public override async Task OnConnectedAsync()
         {
-            await Groups.AddToGroupAsync(Context.ConnectionId, matchId);
-            await Clients.Group(matchId).SendAsync("JoinedGroup", matchId);
+            var pid = Guid.Parse(Context.User!.FindFirst("pid")!.Value);
+
+            tracker.Register(pid, Context.ConnectionId);
+
+            await Groups.AddToGroupAsync(Context.ConnectionId, pid.ToString());
+
+            log.LogInformation($"Player {pid} connesso WS ({Context.ConnectionId})");
         }
 
-        public async Task LeaveMatch(string matchId)
+        public override async Task OnDisconnectedAsync(Exception? ex)
         {
-            await Groups.RemoveFromGroupAsync(Context.ConnectionId, matchId);
-            await Clients.Group(matchId).SendAsync("PlayerDisconnected", GetCurrentPlayerId());
-        }
-
-        public override async Task OnDisconnectedAsync(Exception exception)
-        {
-            // Optional: Handle player disconnection (e.g., notify other players, pause game)
-            await base.OnDisconnectedAsync(exception);
-        }
-
-        private Guid GetCurrentPlayerId()
-        {
-            var userIdClaim = Context.User.FindFirst("sub")?.Value;
-            return Guid.Parse(userIdClaim ?? throw new InvalidOperationException("User ID not found in token"));
+            tracker.Unregister(Context.ConnectionId);
+            await base.OnDisconnectedAsync(ex);
         }
     }
 }

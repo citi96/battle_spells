@@ -2,6 +2,6 @@
 {
     public interface INotificationService
     {
-        Task NotifyMatchStartedAsync(Guid matchId);
+        Task NotifyMatchStartedAsync(Guid matchId, IReadOnlyCollection<Guid> players);
     }
 }

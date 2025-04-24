@@ -5,6 +5,7 @@
         Created,
         Canceled,
         Started,
+        Ended,
         Unknown = ushort.MaxValue,
     }
 }

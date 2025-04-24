@@ -5,6 +5,10 @@
     <RootNamespace>BattleSpells</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http.Connections.Client" Version="9.0.4" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Client" Version="9.0.4" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Battle Spells.model\Battle Spells.Models.csproj" />
   </ItemGroup>
 </Project>

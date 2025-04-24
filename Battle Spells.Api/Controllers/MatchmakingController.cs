@@ -19,5 +19,17 @@ namespace Battle_Spells.Api.Controllers
             var result = await matchmakingService.FindMatchAsync(request);
             return Ok(result);
         }
+
+        [HttpDelete("{playerId}")]
+        public async Task<IActionResult> CancelMatchmaking(Guid playerId)
+        {
+            logger.LogInformation($"Stop matchmaking per giocatore: {playerId}");
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await matchmakingService.CancelMatchmakingAsync(playerId);
+            return Ok(result);
+        }
     }
 }
