@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dtq6efeqb8x4x"
-path="res://.godot/imported/Fleshbud.png-2c1656cb0dc89972bb3caddc11a1e92b.ctex"
+uid="uid://v6n1d23y6l8"
+path="res://.godot/imported/Cervical Bloom.png-01abdeccd92d4d57b4e7cc47d321d0cf.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/Cards/Minion/Fleshbud.png"
-dest_files=["res://.godot/imported/Fleshbud.png-2c1656cb0dc89972bb3caddc11a1e92b.ctex"]
+source_file="res://Images/Cards/Spell/Cervical Bloom.png"
+dest_files=["res://.godot/imported/Cervical Bloom.png-01abdeccd92d4d57b4e7cc47d321d0cf.ctex"]
 
 [params]
 

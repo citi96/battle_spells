@@ -2,9 +2,8 @@
 
 namespace Battle_Spells.Api.Entities
 {
-    public class MatchStateChange
+    public class MatchStateChange : BaseEntity
     {
-        public Guid Id { get; set; }
         public Guid MatchId { get; set; }
         public Guid ActionId { get; set; }
         public EMatchStateChangeType StateChangeType { get; set; }

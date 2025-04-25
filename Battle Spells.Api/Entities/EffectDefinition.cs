@@ -2,9 +2,8 @@
 
 namespace Battle_Spells.Api.Entities
 {
-    public class EffectDefinition
+    public class EffectDefinition : BaseEntity
     {
-        public Guid Id { get; set; }
         public ECardEffectType EffectType { get; set; } = ECardEffectType.Unknown;
         public int Amount { get; set; }
         public string? SerializedParameters { get; set; }

@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_lacyi")
 HeroName = "Atherex, the Womb Vault"
-BaseHP = 30
-BaseOrbs = 1
+BaseHP = null
+BaseOrbs = 3
 Description = "A reversed-gravity being with a cathedral-like abdomen. No eyes, only a vertical mouth and skeletal arches rising from her back."
 metadata/_custom_type_script = "uid://dgd66ri77gf36"

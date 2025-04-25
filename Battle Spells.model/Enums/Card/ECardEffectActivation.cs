@@ -2,10 +2,9 @@ namespace Battle_Spells.Models.Enums.Card
 {
     public enum ECardEffectActivation : ushort
     {
-        Reflect,
-        Immobile,
         Lazy,
         DeathEcho,
+        EndOfTurn,
         Unknown = ushort.MaxValue,
     }
 }

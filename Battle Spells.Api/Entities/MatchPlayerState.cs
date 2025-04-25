@@ -1,9 +1,7 @@
 ﻿namespace Battle_Spells.Api.Entities
 {
-    public class MatchPlayerState
+    public class MatchPlayerState : BaseEntity
     {
-        public Guid Id { get; set; }
-
         public Guid PlayerId { get; set; }
         public Guid HeroId { get; set; }
         public Guid MatchId { get; set; }

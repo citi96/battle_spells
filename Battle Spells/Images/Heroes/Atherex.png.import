@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cn23po5ym2txf"
-path="res://.godot/imported/WombShroud.png-ff3d8b4b2ad2ef08e84b7ff8cb95f76e.ctex"
+uid="uid://ctx5bsi5nd61p"
+path="res://.godot/imported/Atherex.png-b077dae778e75302694c2978796b4e85.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Images/Cards/Hero/WombShroud.png"
-dest_files=["res://.godot/imported/WombShroud.png-ff3d8b4b2ad2ef08e84b7ff8cb95f76e.ctex"]
+source_file="res://Images/Heroes/Atherex.png"
+dest_files=["res://.godot/imported/Atherex.png-b077dae778e75302694c2978796b4e85.ctex"]
 
 [params]
 

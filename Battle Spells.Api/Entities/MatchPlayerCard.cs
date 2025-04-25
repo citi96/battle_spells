@@ -2,9 +2,8 @@
 
 namespace Battle_Spells.Api.Entities
 {
-    public class MatchPlayerCard
+    public class MatchPlayerCard : BaseEntity
     {
-        public Guid Id { get; set; } = Guid.NewGuid();
         public Guid CardId { get; set; }
         public required Card Card { get; set; }
         public int CurrentHealt { get; set; }

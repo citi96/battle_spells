@@ -1,6 +1,6 @@
 ﻿namespace Battle_Spells.Api.Entities
 {
-    public class PlayerHero
+    public class PlayerHero : BaseEntity
     {
         public Guid PlayerId { get; set; }
         public Guid HeroId { get; set; }

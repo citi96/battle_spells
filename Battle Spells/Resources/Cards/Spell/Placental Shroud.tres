@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="CardDefinition" load_steps=3 format=3 uid="uid://da58wu8d77rsg"]
+
+[ext_resource type="Resource" uid="uid://dj1e6bvpgqstj" path="res://Resources/Heroes/Atherex.tres" id="1_p2u7l"]
+[ext_resource type="Script" uid="uid://csjxym2rrc1sd" path="res://Scripts/Resources/CardDefinition.cs" id="2_p0rjl"]
+
+[resource]
+script = ExtResource("2_p0rjl")
+Name = "Placental Shroud"
+Description = "er walls remember what they must protect."
+Attack = 0
+Health = 0
+Cost = 3
+EffectDescription = "Atherex wraps herself in semi-sentient placental tissue. Gaining Shield(3) against incoming damage and heal the remaing amount at the end of the turn."
+Effects = Array[int]([4, 5])
+Rarity = 65535
+Type = 0
+Button = 10
+HeroDefinition = ExtResource("1_p2u7l")
+metadata/_custom_type_script = "uid://csjxym2rrc1sd"

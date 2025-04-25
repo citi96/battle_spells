@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Battle_Spells.Api.Repositories
 {
-    public class MatchRepository(BattleSpellsDbContext dbContext) : QueryableRepository<Match>, IMatchRepository
+    public class MatchRepository(BattleSpellsDbContext dbContext) : BaseQueryableRepository<Match>(dbContext), IMatchRepository
     {
         protected override DbSet<Match> Entities => dbContext.Matches;
 

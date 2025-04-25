@@ -43,10 +43,10 @@ namespace BattleSpells.Scripts.Admin
                 heroResources.Add(new(Guid.Empty, hero.HeroName, hero.BaseHP, hero.BaseOrbs, hero.Description));
             }
 
-            var cardResources = new List<CardRequest>();
+            var cardResources = new List<CardDto>();
             foreach (var card in cards)
             {
-                cardResources.Add(new(Guid.Empty, card.Name, card.Description, card.Cost, card.EffectDescription, card.Effects, card.Rarity, card.Type, card.HeroDefinition.Id));
+                cardResources.Add(new(Guid.Empty, card.Name, card.Flavor, card.Cost, card.EffectDescription, card.EffectActivations, card.EffectTypes, card.Rarity, card.Type, card.HeroDefinition.Id));
             }
 
             var syncPayload = new SyncResourcesRequest(heroResources, cardResources);

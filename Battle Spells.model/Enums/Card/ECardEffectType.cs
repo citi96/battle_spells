@@ -9,6 +9,8 @@
         Discard,
         Death,
         Conditional,
+        Shield,
+
         Unknown = ushort.MaxValue,
     }
 }

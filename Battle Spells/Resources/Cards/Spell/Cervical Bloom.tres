@@ -5,13 +5,15 @@
 
 [resource]
 script = ExtResource("2_qq2fl")
-Name = "Reversal of Flesh"
-Description = "Even gravity obeys the womb."
-Cost = 3
-EffectDescription = "Deal 1 HP to all enemy minions, they also gain the “Dizzy(1)” status"
+Name = "Cervical Bloom"
+Description = " twitch in the lining. Something answers."
+Attack = 0
+Health = 0
+Cost = 2
+EffectDescription = "Summons a Mal-formed 1/2 in a front-row tile. "
 Effects = Array[int]([])
 Rarity = 65535
 Type = 0
-Button = 10
+Button = 0
 HeroDefinition = ExtResource("1_k72e8")
 metadata/_custom_type_script = "uid://csjxym2rrc1sd"

@@ -1,10 +1,11 @@
-using System;
 using Battle_Spells.Api.Data;
 using Battle_Spells.Api.Hubs;
 using Battle_Spells.Api.Repositories;
 using Battle_Spells.Api.Repositories.Interfaces;
 using Battle_Spells.Api.Services;
 using Battle_Spells.Api.Services.Interfaces;
+using Battle_Spells.Api.Singletons;
+using Battle_Spells.Api.Singletons.Interfaces;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -22,11 +23,14 @@ builder.Services.AddScoped<INotificationService, NotificationService>();
 builder.Services.AddScoped<ISyncService, SyncService>();
 
 builder.Services.AddScoped<ICardRepository, CardRepository>();
+builder.Services.AddScoped<IEffectDefinitionRepository, EffectDefinitionRepository>();
 builder.Services.AddScoped<IHeroRepository, HeroRepository>();
 builder.Services.AddScoped<IMatchPlayerCardRepository, MatchPlayerCardRepository>();
 builder.Services.AddScoped<IMatchRepository, MatchRepository>();
 builder.Services.AddScoped<IPlayerCardRepository, PlayerCardRepository>();
 builder.Services.AddScoped<IPlayerRepository, PlayerRepository>();
+
+builder.Services.AddSingleton<IPlayerConnectionTracker, PlayerConnectionTracker>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();

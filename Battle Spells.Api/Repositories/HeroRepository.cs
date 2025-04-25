@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Query;
 
 namespace Battle_Spells.Api.Repositories
 {
-    public class HeroRepository(BattleSpellsDbContext dbContext) : QueryableRepository<Hero>, IHeroRepository
+    public class HeroRepository(BattleSpellsDbContext dbContext) : BaseQueryableRepository<Hero>(dbContext), IHeroRepository
     {
         protected override DbSet<Hero> Entities => dbContext.Heroes;
         protected override IIncludableQueryable<Hero, Hero?>? IncludableQueryable => null;

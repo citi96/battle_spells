@@ -1,8 +1,7 @@
 ﻿namespace Battle_Spells.Api.Entities
 {
-    public class Player
+    public class Player : BaseEntity
     {
-        public Guid Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public int MMR { get; set; }
         public Guid? MatchId { get; set; }

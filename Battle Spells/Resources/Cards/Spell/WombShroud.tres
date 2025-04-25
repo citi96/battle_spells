@@ -7,8 +7,10 @@
 script = ExtResource("2_1rbkq")
 Name = "Womb Shroud"
 Description = "Pain enters. Pain leaves with interest."
-Cost = 2
-EffectDescription = "Gain “Reflect(1)” if the effect is still up at the end of the minion phase spawn a Fleshbud"
+Attack = 0
+Health = 0
+Cost = 3
+EffectDescription = "Deals 2 damage to all allied minions.  For each minion killed this way, Atherex heals for 1."
 Effects = Array[int]([])
 Rarity = 65535
 Type = 0

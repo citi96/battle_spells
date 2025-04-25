@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Battle_Spells.Api.Repositories
 {
-    public class PlayerCardRepository(BattleSpellsDbContext dbContext) : QueryableRepository<PlayerCard>, IPlayerCardRepository
+    public class PlayerCardRepository(BattleSpellsDbContext dbContext) : BaseQueryableRepository<PlayerCard>(dbContext), IPlayerCardRepository
     {
         protected override DbSet<PlayerCard> Entities => dbContext.PlayerCards;
         protected override IQueryable<PlayerCard>? IncludableQueryable => null;

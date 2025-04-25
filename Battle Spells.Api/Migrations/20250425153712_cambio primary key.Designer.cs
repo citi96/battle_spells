@@ -3,6 +3,7 @@ using System;
 using Battle_Spells.Api.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Battle_Spells.Api.Migrations
 {
     [DbContext(typeof(BattleSpellsDbContext))]
-    partial class BattleSpellsDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250425153712_cambio primary key")]
+    partial class cambioprimarykey
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.4");

@@ -1,8 +1,7 @@
 ﻿namespace Battle_Spells.Api.Entities
 {
-    public class MatchAction
+    public class MatchAction : BaseEntity
     {
-        public Guid Id { get; set; }
         public Guid MatchId { get; set; }
         public Guid PlayerId { get; set; }
         public DateTime Timestamp { get; set; } = DateTime.UtcNow;

@@ -5,7 +5,7 @@
 [resource]
 script = ExtResource("1_1q06v")
 HeroName = "Ulborh, the Breathing Throne"
-BaseHP = 30
-BaseOrbs = 1
+BaseHP = 15
+BaseOrbs = 3
 Description = "Fused eternally with a biomechanical chair. Legless, with respiratory bells and six moving mandibles."
 metadata/_custom_type_script = "uid://dgd66ri77gf36"

@@ -1,11 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
-using Battle_Spells.Models.Enums.Match;
+﻿using Battle_Spells.Models.Enums.Match;
 
 namespace Battle_Spells.Api.Entities
 {
-    public class Match
+    public class Match : BaseEntity
     {
-        public Guid Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public Guid CurrentPlayerId { get; set; }
         public int TurnNumber { get; set; } = 1;
