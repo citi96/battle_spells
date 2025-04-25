@@ -1,0 +1,13 @@
+fuse:
+  dir: "/litefs"
+
+data:
+  dir: "/var/lib/litefs"
+
+lease:
+  type: "static"
+  advertise-url: "http://primary:20202"
+  candidate: true
+
+exec:
+  - cmd: "dotnet \"Battle Spells.Api.dll\""

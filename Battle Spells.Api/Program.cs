@@ -10,10 +10,9 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configurazione di Entity Framework:
-// In sviluppo usiamo un database InMemory; in produzione configurare PostgreSQL (es. UseNpgsql)
+var connString = builder.Configuration.GetConnectionString("Default");
 builder.Services.AddDbContext<BattleSpellsDbContext>(options =>
-    options.UseSqlite("Data Source=BattleSpells.db"));
+    options.UseSqlite(connString));
 
 // Registrazione dei servizi
 builder.Services.AddScoped<IDeckService, DeckService>();
@@ -40,12 +39,17 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddSignalR();
 
 var app = builder.Build();
-
-if (app.Environment.IsDevelopment())
+using (var scope = app.Services.CreateScope())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    var db = scope.ServiceProvider.GetRequiredService<BattleSpellsDbContext>();
+    db.Database.Migrate();
 }
+
+//if (app.Environment.IsDevelopment())
+//{
+app.UseSwagger();
+    app.UseSwaggerUI();
+//}
 
 app.UseHttpsRedirection();
 app.UseRouting();

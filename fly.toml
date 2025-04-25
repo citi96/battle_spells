@@ -18,3 +18,14 @@ primary_region = 'fra'
   memory = '512mb'
   cpu_kind = 'shared'
   cpus = 1
+
+[build]
+  dockerfile = "Battle Spells.Api/Dockerfile"
+
+[mounts]
+  source = "litefs"
+  destination = "/var/lib/litefs"
+
+[env]
+  ASPNETCORE_ENVIRONMENT = "Development"
+  ConnectionStrings__Default = "Data Source=/litefs/battle.db"
