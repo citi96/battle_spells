@@ -5,6 +5,7 @@
         MatchStarted,
         MatchEnded,
         MatchCanceled,
+        PickNewCard,
         Unknown = ushort.MaxValue
     }
 }

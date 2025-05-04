@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="ResourcesManager" load_steps=3 format=3 uid="uid://dmd6cyu6rhvet"]
+
+[ext_resource type="Script" uid="uid://bpj61dchfysln" path="res://Scripts/Resources/Cards/CardDefinitionBase.cs" id="1_1r8o6"]
+[ext_resource type="Script" uid="uid://bqgejwl84nres" path="res://Scripts/Managers/ResourcesManager.cs" id="2_1fc1u"]
+
+[resource]
+script = ExtResource("2_1fc1u")
+AllCards = Array[ExtResource("1_1r8o6")]([])
+metadata/_custom_type_script = "uid://bqgejwl84nres"

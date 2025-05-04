@@ -1,17 +1,19 @@
-using Battle_Spells.model.Enums.Hub;
-using Godot;
-using Microsoft.AspNetCore.SignalR.Client;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Battle_Spells.model.Enums.Hub;
+using Godot;
+using Microsoft.AspNetCore.SignalR.Client;
 using HttpClient = Godot.HttpClient;
 
 namespace BattleSpells.Scripts.Managers
 {
     public partial class NetworkManager : Node
     {
+        public static NetworkManager Instance { get; private set; } = null!;
+
         public delegate void SignalRMessageReceived(Dictionary<string, object> messageData);
         public delegate void HttpResponseReceived(long result, long responseCode, string[] headers, byte[] body);
 
@@ -23,18 +25,28 @@ namespace BattleSpells.Scripts.Managers
         [Export] public string HubUrl { get; set; } = "ws://localhost:5000/ws";
         [Export] public string PlayerJwt { get; set; } = string.Empty;
 
-        private HubConnection _hub;
-        private HttpRequest _httpRequest;
-
+        private HubConnection? _hub;
+        private HttpRequest? _httpRequest;
 
         public override async void _Ready()
         {
+            if (Instance != null && Instance != this)
+            {
+                GD.PushError("Multiple instances of NetworkManager detected!");
+                QueueFree();
+                return;
+            }
+
+            Instance = this;
+            GD.Print("NetworkManager ready");
+
             await InitSignalR();
 
             _httpRequest = new HttpRequest();
             AddChild(_httpRequest);
             _httpRequest.RequestCompleted += OnHttpRequestCompleted;
         }
+
 
         public override void _ExitTree()
         {
@@ -43,7 +55,7 @@ namespace BattleSpells.Scripts.Managers
 
         public override void _Process(double delta)
         {
-            
+
         }
 
         #region SignalR Methods
@@ -133,8 +145,9 @@ namespace BattleSpells.Scripts.Managers
         /// <param name="jsonBody">Corpo della richiesta in formato JSON</param>
         /// <param name="callback">Callback personalizzato da invocare alla risposta</param>
         /// <returns>True se la richiesta è stata inviata, false altrimenti</returns>
-        public bool SendHttpPostRequest(string url, string jsonBody, HttpResponseReceived callback)
+        public bool SendHttpPostRequest(string endpoint, string jsonBody, HttpResponseReceived callback)
         {
+            var url = new Uri(new Uri(RestBaseUrl), endpoint);
             GD.Print("Invio richiesta HTTP POST a: " + url);
 
             // Se abbiamo un callback personalizzato, lo registriamo temporaneamente
@@ -149,7 +162,7 @@ namespace BattleSpells.Scripts.Managers
                 };
 
                 Error err = tempRequest.Request(
-                    url,
+                    url.ToString(),
                     ["Content-Type: application/json"],
                     HttpClient.Method.Post,
                     jsonBody
@@ -167,7 +180,7 @@ namespace BattleSpells.Scripts.Managers
             {
                 // Usa la richiesta HTTP standard
                 Error err = _httpRequest.Request(
-                    url,
+                    url.ToString(),
                     ["Content-Type: application/json"],
                     HttpClient.Method.Post,
                     jsonBody

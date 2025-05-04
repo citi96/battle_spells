@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="MinionCardDefinition" load_steps=2 format=3 uid="uid://drvcenlx3etai"]
+
+[ext_resource type="Script" uid="uid://dtc73m8ihmjtw" path="res://Scripts/Resources/Cards/MinionCardDefinition.cs" id="1_vgupq"]
+
+[resource]
+script = ExtResource("1_vgupq")
+Name = ""
+Flavor = ""
+Attack = 0
+Health = 0
+Cost = 0
+EffectDescription = ""
+EffectActivations = Array[int]([])
+EffectTypes = Array[int]([])
+Rarity = -1
+Type = -1
+Button = -1
+metadata/_custom_type_script = "uid://dtc73m8ihmjtw"

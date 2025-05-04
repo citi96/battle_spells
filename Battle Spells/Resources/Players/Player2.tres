@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="PlayerHolder" load_steps=2 format=3 uid="uid://cayqglgebgthh"]
+
+[ext_resource type="Script" uid="uid://s4rlcdgee2e6" path="res://Scripts/Holders/PlayerHolder.cs" id="1_pmwor"]
+
+[resource]
+script = ExtResource("1_pmwor")
+HandGridPath = null
+metadata/_custom_type_script = "uid://s4rlcdgee2e6"

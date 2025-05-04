@@ -1,0 +1,252 @@
+[gd_scene load_steps=15 format=3 uid="uid://6d30hwy7ym0b"]
+
+[ext_resource type="Shader" uid="uid://brm8u6ydxg1hd" path="res://Shaders/ProspectiveRotation.gdshader" id="1_1geux"]
+[ext_resource type="Script" uid="uid://ranrmgrinj4o" path="res://Scripts/Resources/Cards/InGameCard.cs" id="1_13sua"]
+[ext_resource type="Texture2D" uid="uid://cit6qvj6j8kk0" path="res://Images/Cards/CardBack.png" id="1_xnv4g"]
+[ext_resource type="Texture2D" uid="uid://v6n1d23y6l8" path="res://Images/Cards/Spell/Cervical Bloom.png" id="2_u5wvb"]
+[ext_resource type="Texture2D" uid="uid://bhd6qjxguant2" path="res://Images/Cards/CardFront.png" id="4_1geux"]
+[ext_resource type="Texture2D" uid="uid://c2xnaq8y034gv" path="res://Images/Cards/Upgrade/Icon.png" id="4_yvxpl"]
+[ext_resource type="FontFile" uid="uid://bav7tp7ulol08" path="res://Fonts/Caudex-Regular.ttf" id="5_uf1hq"]
+[ext_resource type="Texture2D" uid="uid://bd1c47kynxck0" path="res://Images/Cards/CardResource.png" id="6_sj14m"]
+[ext_resource type="FontFile" uid="uid://bpjqgp3nvn7x3" path="res://Fonts/Caudex-Italic.ttf" id="7_pyy63"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1geux"]
+shader = ExtResource("1_1geux")
+shader_parameter/fov = 90.0
+shader_parameter/cull_back = true
+shader_parameter/y_rot = 0.0
+shader_parameter/x_rot = 8.55e-06
+shader_parameter/inset = 0.0
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_c6tr3"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cfeic"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_w5l26"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7wr7o"]
+
+[node name="Card" type="Control" node_paths=PackedStringArray("Card")]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -960.0
+offset_top = -540.0
+offset_right = -10.0
+offset_bottom = 966.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_13sua")
+Card = NodePath("TextureRect")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_1geux")
+layout_mode = 0
+offset_right = 954.0
+offset_bottom = 1511.0
+texture = SubResource("ViewportTexture_c6tr3")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="SubViewport" type="SubViewport" parent="."]
+size = Vector2i(940, 1490)
+
+[node name="CardTemplate" type="Control" parent="SubViewport"]
+layout_mode = 3
+anchors_preset = 0
+
+[node name="Back" type="TextureRect" parent="SubViewport/CardTemplate"]
+layout_mode = 0
+offset_top = -2.0
+offset_right = 943.0
+offset_bottom = 1497.0
+texture = ExtResource("1_xnv4g")
+expand_mode = 1
+
+[node name="Art" type="TextureRect" parent="SubViewport/CardTemplate"]
+layout_mode = 0
+offset_left = 63.0
+offset_top = 92.0
+offset_right = 909.0
+offset_bottom = 940.0
+texture = ExtResource("2_u5wvb")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Front" type="TextureRect" parent="SubViewport/CardTemplate"]
+layout_mode = 0
+offset_right = 947.0
+offset_bottom = 1497.0
+texture = ExtResource("4_1geux")
+stretch_mode = 4
+
+[node name="Title" type="TextEdit" parent="SubViewport/CardTemplate/Front"]
+layout_mode = 0
+offset_left = 175.0
+offset_top = 850.0
+offset_right = 885.0
+offset_bottom = 934.0
+theme_override_colors/word_highlighted_color = Color(0, 0, 0, 0)
+theme_override_colors/current_line_color = Color(0, 0, 0, 0)
+theme_override_colors/background_color = Color(0, 0, 0, 0)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 0)
+theme_override_colors/font_placeholder_color = Color(0, 0, 0, 0)
+theme_override_colors/font_readonly_color = Color(0.815686, 0.784314, 0.627451, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 0)
+theme_override_colors/selection_color = Color(0, 0, 0, 0)
+theme_override_colors/font_selected_color = Color(0, 0, 0, 0)
+theme_override_colors/caret_background_color = Color(0, 0, 0, 0)
+theme_override_colors/caret_color = Color(0, 0, 0, 0)
+theme_override_colors/search_result_border_color = Color(0, 0, 0, 0)
+theme_override_colors/search_result_color = Color(0, 0, 0, 0)
+theme_override_fonts/font = ExtResource("5_uf1hq")
+theme_override_font_sizes/font_size = 50
+theme_override_styles/normal = SubResource("StyleBoxEmpty_cfeic")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_w5l26")
+theme_override_styles/read_only = SubResource("StyleBoxEmpty_7wr7o")
+text = "Cervical Bloom"
+editable = false
+context_menu_enabled = false
+emoji_menu_enabled = false
+shortcut_keys_enabled = false
+selecting_enabled = false
+wrap_mode = 1
+
+[node name="Type" type="TextureRect" parent="SubViewport/CardTemplate/Front"]
+layout_mode = 0
+offset_left = -29.0
+offset_top = 9.0
+offset_right = 171.0
+offset_bottom = 215.0
+texture = ExtResource("4_yvxpl")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Resources" type="Node2D" parent="SubViewport/CardTemplate/Front"]
+position = Vector2(33, 2)
+
+[node name="Mana" type="TextureRect" parent="SubViewport/CardTemplate/Front/Resources"]
+offset_left = 711.0
+offset_top = -2.0
+offset_right = 911.0
+offset_bottom = 205.0
+texture = ExtResource("6_sj14m")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Value" type="RichTextLabel" parent="SubViewport/CardTemplate/Front/Resources/Mana"]
+layout_mode = 0
+offset_left = 33.0
+offset_top = 22.0
+offset_right = 167.0
+offset_bottom = 154.0
+theme_override_colors/default_color = Color(0.490196, 0.666667, 0.882353, 1)
+theme_override_fonts/normal_font = ExtResource("5_uf1hq")
+theme_override_font_sizes/bold_italics_font_size = 90
+theme_override_font_sizes/italics_font_size = 90
+theme_override_font_sizes/mono_font_size = 90
+theme_override_font_sizes/normal_font_size = 90
+theme_override_font_sizes/bold_font_size = 90
+text = "1"
+scroll_active = false
+shortcut_keys_enabled = false
+horizontal_alignment = 1
+vertical_alignment = 1
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+
+[node name="Stats" type="Node2D" parent="SubViewport/CardTemplate/Front"]
+position = Vector2(33, 2)
+
+[node name="Attack" type="TextureRect" parent="SubViewport/CardTemplate/Front/Stats"]
+offset_left = 58.0
+offset_top = 1267.0
+offset_right = 258.0
+offset_bottom = 1474.0
+texture = ExtResource("6_sj14m")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Value" type="RichTextLabel" parent="SubViewport/CardTemplate/Front/Stats/Attack"]
+layout_mode = 0
+offset_left = 33.0
+offset_top = 22.0
+offset_right = 167.0
+offset_bottom = 154.0
+theme_override_colors/default_color = Color(0.490196, 0.666667, 0.882353, 1)
+theme_override_fonts/normal_font = ExtResource("5_uf1hq")
+theme_override_font_sizes/bold_italics_font_size = 90
+theme_override_font_sizes/italics_font_size = 90
+theme_override_font_sizes/mono_font_size = 90
+theme_override_font_sizes/normal_font_size = 90
+theme_override_font_sizes/bold_font_size = 90
+text = "1"
+scroll_active = false
+shortcut_keys_enabled = false
+horizontal_alignment = 1
+vertical_alignment = 1
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+
+[node name="Defence" type="TextureRect" parent="SubViewport/CardTemplate/Front/Stats"]
+offset_left = 626.0
+offset_top = 1266.0
+offset_right = 826.0
+offset_bottom = 1473.0
+texture = ExtResource("6_sj14m")
+expand_mode = 1
+stretch_mode = 4
+
+[node name="Value" type="RichTextLabel" parent="SubViewport/CardTemplate/Front/Stats/Defence"]
+layout_mode = 0
+offset_left = 33.0
+offset_top = 22.0
+offset_right = 167.0
+offset_bottom = 154.0
+theme_override_colors/default_color = Color(0.490196, 0.666667, 0.882353, 1)
+theme_override_fonts/normal_font = ExtResource("5_uf1hq")
+theme_override_font_sizes/bold_italics_font_size = 90
+theme_override_font_sizes/italics_font_size = 90
+theme_override_font_sizes/mono_font_size = 90
+theme_override_font_sizes/normal_font_size = 90
+theme_override_font_sizes/bold_font_size = 90
+text = "1"
+scroll_active = false
+shortcut_keys_enabled = false
+horizontal_alignment = 1
+vertical_alignment = 1
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+
+[node name="CardDetailContainer" type="VBoxContainer" parent="SubViewport/CardTemplate/Front"]
+layout_mode = 0
+offset_left = 113.0
+offset_top = 944.0
+offset_right = 823.0
+offset_bottom = 1238.0
+theme_override_constants/separation = 30
+
+[node name="Flavor" type="RichTextLabel" parent="SubViewport/CardTemplate/Front/CardDetailContainer"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0.627451, 0.627451, 0.627451, 1)
+theme_override_fonts/normal_font = ExtResource("7_pyy63")
+theme_override_fonts/italics_font = ExtResource("7_pyy63")
+theme_override_font_sizes/normal_font_size = 40
+text = "“A twitch in the lining. Something answers.”"
+fit_content = true
+scroll_active = false
+shortcut_keys_enabled = false
+horizontal_alignment = 2
+
+[node name="Effect" type="RichTextLabel" parent="SubViewport/CardTemplate/Front/CardDetailContainer"]
+layout_mode = 2
+theme_override_colors/default_color = Color(0.745098, 0.745098, 0.745098, 1)
+theme_override_fonts/normal_font = ExtResource("5_uf1hq")
+theme_override_font_sizes/normal_font_size = 55
+text = "Summons a Malformed (1/2) in a back-row tile. "
+fit_content = true
+scroll_active = false

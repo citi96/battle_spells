@@ -34,7 +34,7 @@ namespace BattleSpells.Scripts.Admin
         public void OnSyncButtonPressed()
         {
             List<HeroDefinition> heroes = ResourceLoaderHelper.LoadResourcesFromFolder<HeroDefinition>(HeroesResourceFolder);
-            List<CardDefinition> cards = ResourceLoaderHelper.LoadResourcesFromFolder<CardDefinition>(CardsResourceFolder);
+            List<CardDefinitionBase> cards = ResourceLoaderHelper.LoadResourcesFromFolder<CardDefinitionBase>(CardsResourceFolder);
 
             // Converti le risorse in formato DTO per il payload (esempio base)
             var heroResources = new List<HeroRequest>();

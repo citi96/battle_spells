@@ -1,11 +1,11 @@
-using Battle_Spells.model.Enums.Hub;
-using Battle_Spells.model.Enums.Matchmaking;
-using Battle_Spells.Models.Enums.Match;
-using Godot;
 using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Text.Json;
+using Battle_Spells.model.Enums.Hub;
+using Battle_Spells.model.Enums.Matchmaking;
+using BattleSpells.Scripts.Helper;
+using Godot;
 
 namespace BattleSpells.Scripts.Managers
 {
@@ -14,10 +14,7 @@ namespace BattleSpells.Scripts.Managers
     /// </summary>
     public partial class MatchmakingManager : Node
     {
-        [Export] public string RestApiUrl = "http://localhost:5000/api/match";
-        [Export] public NodePath NetworkManagerPath;
-
-        private NetworkManager _networkManager;
+        [Export] public string RestEndpoint = "/matchmaking";
 
         private EMatchmakingState _currentState = EMatchmakingState.Idle;
         public EMatchmakingState CurrentState
@@ -44,10 +41,13 @@ namespace BattleSpells.Scripts.Managers
 
         public override void _Ready()
         {
-            _networkManager = GetNode<NetworkManager>(NetworkManagerPath);
+            MessageDispatcher.Instance.RegisterHandler(EHubMessageType.MatchStarted, HandleMatchStartedMessage);
+        }
 
-            // Registra i callback per i messaggi WebSocket e le risposte HTTP
-            _networkManager.OnSignalRMessageReceived += OnSignalRMessageReceived;
+        public override void _ExitTree()
+        {
+            // Rimuovi gli handler quando il nodo viene distrutto
+            MessageDispatcher.Instance?.UnregisterHandler(EHubMessageType.MatchStarted, HandleMatchStartedMessage);
         }
 
         /// <summary>
@@ -69,8 +69,8 @@ namespace BattleSpells.Scripts.Managers
             };
 
             string jsonRequest = JsonSerializer.Serialize(matchmakingRequest);
-            bool requestSent = _networkManager.SendHttpPostRequest(
-                $"{RestApiUrl}/matchmaking",
+            bool requestSent = NetworkManager.Instance.SendHttpPostRequest(
+                $"{RestEndpoint}",
                 jsonRequest,
                 OnMatchmakingResponseReceived
             );
@@ -111,8 +111,8 @@ namespace BattleSpells.Scripts.Managers
             string jsonRequest = JsonSerializer.Serialize(createMatchRequest);
 
             // Invia la richiesta REST con callback personalizzato
-            bool requestSent = _networkManager.SendHttpPostRequest(
-                $"{RestApiUrl}/create",
+            bool requestSent = NetworkManager.Instance.SendHttpPostRequest(
+                $"{RestEndpoint}/create",
                 jsonRequest,
                 OnCreateMatchResponseReceived
             );
@@ -153,8 +153,8 @@ namespace BattleSpells.Scripts.Managers
             string jsonRequest = JsonSerializer.Serialize(joinMatchRequest);
 
             // Invia la richiesta REST con callback personalizzato
-            bool requestSent = _networkManager.SendHttpPostRequest(
-                $"{RestApiUrl}/join",
+            bool requestSent = NetworkManager.Instance.SendHttpPostRequest(
+                $"{RestEndpoint}/join",
                 jsonRequest,
                 OnJoinMatchResponseReceived
             );
@@ -169,7 +169,7 @@ namespace BattleSpells.Scripts.Managers
                 GD.Print("Richiesta di join match inviata. In attesa di risposta...");
             }
         }
-       
+
         #region Callback Responses
 
         /// <summary>
@@ -289,33 +289,21 @@ namespace BattleSpells.Scripts.Managers
 
         #endregion
 
-        #region WebSocket Message Handling
-
-        /// <summary>
-        /// Gestisce i messaggi ricevuti tramite WebSocket.
-        /// </summary>
-        private void OnSignalRMessageReceived(Dictionary<string, object> messageData)
-        {
-            if (!messageData.TryGetValue("type", out var raw)) 
-                return;
-
-            switch ((EHubMessageType) raw)
-            {
-                case EHubMessageType.MatchStarted: HandleMatchStartedMessage(messageData); break;
-                //case "MatchCanceled": HandleMatchCanceledMessage(messageData); break;
-            }
-        }
+        #region SignalR Message Handling
 
         private void HandleMatchStartedMessage(Dictionary<string, object> messageData)
         {
-            if (!messageData.TryGetValue("matchId", out object value))
+            if (messageData.TryGetValue("matchId", out object? value))
                 return;
 
-            string matchId = value.ToString();
+            if (value == null)
+                return;
+
+            var matchId = (Guid)value;
             GD.Print($"Match avviato: {matchId}");
 
             CurrentState = EMatchmakingState.InMatch;
-            EmitSignal(SignalName.MatchStarted, matchId);
+            EmitSignal(SignalName.MatchStarted, matchId.ToString());
         }
 
         #endregion

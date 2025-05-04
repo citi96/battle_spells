@@ -1,0 +1,257 @@
+[gd_scene load_steps=12 format=3 uid="uid://bp0483tnhhk42"]
+
+[ext_resource type="Script" uid="uid://cot0plnst1ggg" path="res://Scripts/Managers/MouseOperationsManager.cs" id="1_u8j7u"]
+[ext_resource type="Shader" uid="uid://brm8u6ydxg1hd" path="res://Shaders/ProspectiveRotation.gdshader" id="1_uotjs"]
+[ext_resource type="Texture2D" uid="uid://cn886ywkatuap" path="res://Images/UI/BackgroundArena.png" id="1_yijg0"]
+[ext_resource type="Texture2D" uid="uid://cit6qvj6j8kk0" path="res://Images/Cards/CardBack.png" id="2_u8j7u"]
+[ext_resource type="Script" uid="uid://bj7ao7jupn5hj" path="res://Scripts/Managers/MatchManager.cs" id="2_xwjbm"]
+[ext_resource type="Resource" uid="uid://csq4abilqrqde" path="res://Resources/Players/Player1.tres" id="4_uotjs"]
+[ext_resource type="PackedScene" uid="uid://c5vul1amcbl4g" path="res://Scenes/FragmentPortrait.tscn" id="5_mofsa"]
+[ext_resource type="Resource" uid="uid://cayqglgebgthh" path="res://Resources/Players/Player2.tres" id="5_vu60g"]
+[ext_resource type="PackedScene" uid="uid://6d30hwy7ym0b" path="res://Scenes/Card.tscn" id="10_vu60g"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vu60g"]
+shader = ExtResource("1_uotjs")
+shader_parameter/fov = 90.0
+shader_parameter/cull_back = true
+shader_parameter/y_rot = 0.0
+shader_parameter/x_rot = 8.55e-06
+shader_parameter/inset = 0.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ovofm"]
+shader = ExtResource("1_uotjs")
+shader_parameter/fov = 90.0
+shader_parameter/cull_back = true
+shader_parameter/y_rot = 0.0
+shader_parameter/x_rot = 10.0
+shader_parameter/inset = 0.0
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_u8j7u")
+
+[node name="MatchManager" type="Node2D" parent="."]
+script = ExtResource("2_xwjbm")
+CardScene = ExtResource("10_vu60g")
+Player1 = ExtResource("4_uotjs")
+Player2 = ExtResource("5_vu60g")
+
+[node name="Background" type="Sprite2D" parent="."]
+z_index = -10
+material = SubResource("ShaderMaterial_vu60g")
+position = Vector2(2081.76, -428.375)
+rotation = 1.5708
+scale = Vector2(1.31212, 2.03354)
+texture = ExtResource("1_yijg0")
+centered = false
+
+[node name="Screen Space" type="CanvasLayer" parent="."]
+layer = 0
+follow_viewport_enabled = true
+
+[node name="Hand" type="CenterContainer" parent="Screen Space"]
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 140.0
+offset_top = -120.0
+offset_right = 2390.0
+offset_bottom = -80.0
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(0.2, 0.2)
+
+[node name="Hand" type="GridContainer" parent="Screen Space/Hand"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = 250
+columns = 10
+
+[node name="CardTemplate" parent="Screen Space/Hand/Hand" instance=ExtResource("10_vu60g")]
+layout_mode = 2
+
+[node name="CardTemplate2" parent="Screen Space/Hand/Hand" instance=ExtResource("10_vu60g")]
+layout_mode = 2
+
+[node name="CardTemplate3" parent="Screen Space/Hand/Hand" instance=ExtResource("10_vu60g")]
+layout_mode = 2
+
+[node name="CardTemplate4" parent="Screen Space/Hand/Hand" instance=ExtResource("10_vu60g")]
+layout_mode = 2
+
+[node name="CardTemplate5" parent="Screen Space/Hand/Hand" instance=ExtResource("10_vu60g")]
+layout_mode = 2
+
+[node name="CardTemplate6" parent="Screen Space/Hand/Hand" instance=ExtResource("10_vu60g")]
+layout_mode = 2
+
+[node name="CardTemplate7" parent="Screen Space/Hand/Hand" instance=ExtResource("10_vu60g")]
+layout_mode = 2
+
+[node name="CardTemplate8" parent="Screen Space/Hand/Hand" instance=ExtResource("10_vu60g")]
+layout_mode = 2
+
+[node name="CardTemplate9" parent="Screen Space/Hand/Hand" instance=ExtResource("10_vu60g")]
+layout_mode = 2
+
+[node name="CardTemplate10" parent="Screen Space/Hand/Hand" instance=ExtResource("10_vu60g")]
+layout_mode = 2
+
+[node name="Deck" type="VBoxContainer" parent="Screen Space"]
+offset_left = 1842.0
+offset_top = 745.0
+offset_right = 2866.0
+offset_bottom = 2281.0
+rotation = -0.0523599
+scale = Vector2(0.18, 0.18)
+theme_override_constants/separation = -1540
+
+[node name="Back" type="TextureRect" parent="Screen Space/Deck"]
+material = SubResource("ShaderMaterial_ovofm")
+layout_mode = 2
+texture = ExtResource("2_u8j7u")
+
+[node name="Back2" type="TextureRect" parent="Screen Space/Deck"]
+material = SubResource("ShaderMaterial_ovofm")
+layout_mode = 2
+texture = ExtResource("2_u8j7u")
+
+[node name="Back3" type="TextureRect" parent="Screen Space/Deck"]
+material = SubResource("ShaderMaterial_ovofm")
+layout_mode = 2
+texture = ExtResource("2_u8j7u")
+
+[node name="Back4" type="TextureRect" parent="Screen Space/Deck"]
+material = SubResource("ShaderMaterial_ovofm")
+layout_mode = 2
+texture = ExtResource("2_u8j7u")
+
+[node name="Back5" type="TextureRect" parent="Screen Space/Deck"]
+material = SubResource("ShaderMaterial_ovofm")
+layout_mode = 2
+texture = ExtResource("2_u8j7u")
+
+[node name="Back6" type="TextureRect" parent="Screen Space/Deck"]
+material = SubResource("ShaderMaterial_ovofm")
+layout_mode = 2
+texture = ExtResource("2_u8j7u")
+
+[node name="Back7" type="TextureRect" parent="Screen Space/Deck"]
+material = SubResource("ShaderMaterial_ovofm")
+layout_mode = 2
+texture = ExtResource("2_u8j7u")
+
+[node name="Back8" type="TextureRect" parent="Screen Space/Deck"]
+material = SubResource("ShaderMaterial_ovofm")
+layout_mode = 2
+texture = ExtResource("2_u8j7u")
+
+[node name="Back9" type="TextureRect" parent="Screen Space/Deck"]
+material = SubResource("ShaderMaterial_ovofm")
+layout_mode = 2
+texture = ExtResource("2_u8j7u")
+
+[node name="Back10" type="TextureRect" parent="Screen Space/Deck"]
+material = SubResource("ShaderMaterial_ovofm")
+layout_mode = 2
+texture = ExtResource("2_u8j7u")
+
+[node name="Back11" type="TextureRect" parent="Screen Space/Deck"]
+material = SubResource("ShaderMaterial_ovofm")
+layout_mode = 2
+texture = ExtResource("2_u8j7u")
+
+[node name="Back12" type="TextureRect" parent="Screen Space/Deck"]
+material = SubResource("ShaderMaterial_ovofm")
+layout_mode = 2
+texture = ExtResource("2_u8j7u")
+
+[node name="Back13" type="TextureRect" parent="Screen Space/Deck"]
+material = SubResource("ShaderMaterial_ovofm")
+layout_mode = 2
+texture = ExtResource("2_u8j7u")
+
+[node name="Back14" type="TextureRect" parent="Screen Space/Deck"]
+material = SubResource("ShaderMaterial_ovofm")
+layout_mode = 2
+texture = ExtResource("2_u8j7u")
+
+[node name="Back15" type="TextureRect" parent="Screen Space/Deck"]
+material = SubResource("ShaderMaterial_ovofm")
+layout_mode = 2
+texture = ExtResource("2_u8j7u")
+
+[node name="Back16" type="TextureRect" parent="Screen Space/Deck"]
+material = SubResource("ShaderMaterial_ovofm")
+layout_mode = 2
+texture = ExtResource("2_u8j7u")
+
+[node name="Back17" type="TextureRect" parent="Screen Space/Deck"]
+material = SubResource("ShaderMaterial_ovofm")
+layout_mode = 2
+texture = ExtResource("2_u8j7u")
+
+[node name="Back18" type="TextureRect" parent="Screen Space/Deck"]
+material = SubResource("ShaderMaterial_ovofm")
+layout_mode = 2
+texture = ExtResource("2_u8j7u")
+
+[node name="Back19" type="TextureRect" parent="Screen Space/Deck"]
+material = SubResource("ShaderMaterial_ovofm")
+layout_mode = 2
+texture = ExtResource("2_u8j7u")
+
+[node name="Spell" type="GridContainer" parent="Screen Space"]
+offset_left = 25.0
+offset_top = 960.0
+offset_right = 3825.0
+offset_bottom = 960.0
+scale = Vector2(0.2, 0.2)
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/h_separation = 950
+columns = 10
+
+[node name="P" parent="Screen Space/Spell" instance=ExtResource("10_vu60g")]
+z_index = 5
+layout_mode = 2
+
+[node name="Q" parent="Screen Space/Spell" instance=ExtResource("10_vu60g")]
+z_index = 4
+layout_mode = 2
+
+[node name="W" parent="Screen Space/Spell" instance=ExtResource("10_vu60g")]
+z_index = 3
+layout_mode = 2
+
+[node name="E" parent="Screen Space/Spell" instance=ExtResource("10_vu60g")]
+z_index = 2
+layout_mode = 2
+
+[node name="R" parent="Screen Space/Spell" instance=ExtResource("10_vu60g")]
+z_index = 1
+layout_mode = 2
+
+[node name="FragmentPortrait" parent="Screen Space" instance=ExtResource("5_mofsa")]
+
+[node name="EnemyFragmentPortrait" parent="Screen Space" instance=ExtResource("5_mofsa")]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -261.0
+offset_right = -221.0
+grow_horizontal = 0
+
+[node name="Overlay Space" type="Camera2D" parent="."]
+visible = false
+top_level = true
+z_index = 200
+anchor_mode = 0
