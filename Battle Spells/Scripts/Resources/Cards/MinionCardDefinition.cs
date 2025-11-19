@@ -1,4 +1,5 @@
 using Godot;
+using BattleSpells.Scripts.Resources.Effects;
 
 namespace BattleSpells.Scripts.Resources.Cards
 {
@@ -7,13 +8,18 @@ namespace BattleSpells.Scripts.Resources.Cards
     {
         public override bool CanUseCard()
         {
-            //Add logic
-            return true;
+            return EffectResolver != null;
         }
 
         public override bool UseCard()
         {
-            throw new System.NotImplementedException();
+            if (EffectResolver == null)
+            {
+                GD.PushWarning($"No resolver configured for {Name}.");
+                return false;
+            }
+
+            return ResolveEffects(EffectResolver);
         }
     }
 }

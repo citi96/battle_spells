@@ -5,6 +5,10 @@ namespace Battle_Spells.Models.Enums.Card
         Lazy,
         DeathEcho,
         EndOfTurn,
+        OnPlay,
+        OnDeath,
+        OnAllyDeath,
+        OnDamageTaken,
         Unknown = ushort.MaxValue,
     }
 }
