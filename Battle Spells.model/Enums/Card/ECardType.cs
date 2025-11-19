@@ -6,6 +6,7 @@ namespace Battle_Spells.Models.Enums.Card
         Spell = 10,
         Shop = 20,
         Minion = 30,
+        Structure = 40,
         Unknown = ushort.MaxValue,
     }
 }
